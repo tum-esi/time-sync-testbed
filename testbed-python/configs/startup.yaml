@@ -1,0 +1,572 @@
+#NOTE: Do not BLOCK last command in a device!
+
+
+#################### BBB-1 Presets
+
+BBB1-E2E-UDP:
+  ip_addr: 192.168.8.2
+  user: debian
+  pass: temppwd
+  id: BBB-1
+  programs:
+    - command: /home/debian/linuxptp-3.1.1/ptp4l
+      name: PTP Client
+      run_root: True
+      args:
+        - "-i eth0"
+        - "-4"
+    - command: /home/debian/PPS_generator
+      name: PPS Generator
+      run_root: True
+      args:
+        - "-w"
+    - command: ethtool
+      name: Set enp3s0 to 100Mbps
+      block: True
+      run_root: True
+      args:
+        - "-s eth0"
+        - "speed 100"
+        - "duplex full"
+        - "autoneg on"
+
+BBB1-P2P-L2:
+  ip_addr: 192.168.8.2
+  user: debian
+  pass: temppwd
+  id: BBB-1
+  programs:
+    - command: /home/debian/linuxptp-3.1.1/ptp4l
+      name: PTP Client
+      run_root: True
+      args:
+        - "-i eth0"
+        - "-2"
+        - "-P"
+    - command: /home/debian/PPS_generator
+      name: PPS Generator
+      run_root: True
+      args:
+        - "-w"
+
+#################### BBB-2 Presets
+
+BBB2-E2E-UDP-slave:
+  ip_addr: 192.168.7.2
+  user: debian
+  pass: temppwd
+  id: BBB-2
+  programs:
+    - command: /home/debian/linuxptp-3.1.1/ptp4l
+      name: PTP Client
+      run_root: True
+      args:
+        - "-i eth0"
+        - "-4"
+        - "-s"
+    - command: /home/debian/PPS_generator
+      name: PPS Generator
+      run_root: True
+      args:
+        - "-w"
+
+BBB2-P2P-L2-slave:
+  ip_addr: 192.168.7.2
+  user: debian
+  pass: temppwd
+  id: BBB-2
+  programs:
+    - command: /home/debian/linuxptp-3.1.1/ptp4l
+      name: PTP Client
+      run_root: True
+      args:
+        - "-i eth0"
+        - "-2"
+        - "-P"
+        - "-s"
+    - command: /home/debian/PPS_generator
+      name: PPS Generator
+      run_root: True
+      args:
+        - "-w"
+
+#################### ESI-1 Presets
+
+TransparetClock-ESI-1-E2E-UDP:
+  ip_addr: 129.187.151.206
+  user: esi
+  pass: iot
+  id: ESI-1
+  programs:
+    - command: /home/esi/Desktop/thomas/dpdk/restore.sh
+      name: Re-attach igb drivers
+      block: True
+      run_root: True
+      args:
+        - " "
+    - command: ifconfig
+      name: ifconfig enp2s0
+      block: True
+      run_root: True
+      args:
+        - "enp2s0 192.168.0.112/24"
+    - command: ifconfig
+      name: ifconfig enp3s0
+      block: True
+      run_root: True
+      args:
+        - "enp3s0 192.168.0.113/24"
+    - command: /home/esi/Desktop/thomas/linuxptp-3.1.1/ts2phc
+      name: ts2phc NIC sync
+      run_root: True
+      args:
+        - "-f /home/esi/Desktop/thomas/linuxptp-3.1.1/configs/ts2phc-TC.cfg"
+        - "> /home/esi/Desktop/ESI1-ts2phc.log"
+    - command: /home/esi/Desktop/thomas/linuxptp-3.1.1/ptp4l
+      name: PTP TC
+      run_root: True
+      args:
+        - "-f /home/esi/Desktop/thomas/linuxptp-3.1.1/configs/E2E-TC.cfg"
+        - "-i enp3s0 -i enp2s0"
+        - "-4"
+        - "-m"
+        - "> /home/esi/Desktop/ESI1.log"
+
+TransparetClock-ESI-1-P2P-UDP:
+  ip_addr: 129.187.151.206
+  user: esi
+  pass: iot
+  id: ESI-1
+  programs:
+    - command: /home/esi/Desktop/thomas/dpdk/restore.sh
+      name: Re-attach igb drivers
+      block: True
+      run_root: True
+      args:
+        - " "
+    - command: ethtool
+      name: Set enp3s0 to 100Mbps
+      block: True
+      run_root: True
+      args:
+        - "-s enp3s0"
+        - "speed 100"
+        - "duplex full"
+        - "autoneg on"
+    - command: ifconfig
+      name: ifconfig enp2s0
+      block: True
+      run_root: True
+      args:
+        - "enp2s0 192.168.0.112/24"
+    - command: ifconfig
+      name: ifconfig enp3s0
+      block: True
+      run_root: True
+      args:
+        - "enp3s0 192.168.0.113/24"
+    - command: /home/esi/Desktop/thomas/linuxptp-3.1.1/ts2phc
+      name: ts2phc NIC sync
+      run_root: True
+      args:
+        - "-f /home/esi/Desktop/thomas/linuxptp-3.1.1/configs/ts2phc-TC.cfg"
+        - "> /home/esi/Desktop/ESI1-ts2phc.log"
+    - command: /home/esi/Desktop/thomas/linuxptp-3.1.1/ptp4l
+      name: PTP TC
+      run_root: True
+      args:
+        - "-f /home/esi/Desktop/thomas/linuxptp-3.1.1/configs/P2P-TC.cfg"
+        - "-i enp3s0 -i enp2s0"
+        - "-4"
+        - "-P"
+        - "-m"
+        - "> /home/esi/Desktop/ESI1.log"
+
+Delay-ESI-1:
+  ip_addr: 129.187.151.206
+  user: esi
+  pass: iot
+  id: ESI-1
+  programs:
+    - command: /home/esi/Desktop/thomas/dpdk/setup.sh
+      name: Delay Node
+      run_root: True
+      args:
+        - " "
+
+OC-ESI-1-E2E-UDP:
+  ip_addr: 129.187.151.206
+  user: esi
+  pass: iot
+  id: ESI-1
+  programs:
+    - command: /home/esi/Desktop/thomas/dpdk/restore.sh
+      name: Re-attach igb drivers
+      block: True
+      run_root: True
+      args:
+        - " "
+    - command: ethtool
+      name: Set enp2s0 to 100Mbps
+      block: True
+      run_root: True
+      args:
+        - "-s enp2s0"
+        - "speed 100"
+        - "duplex full"
+        - "autoneg on"
+    - command: /home/esi/Desktop/thomas/linuxptp-3.1.1/ptp4l
+      name: PTP
+      run_root: True
+      args:
+        - "-i enp2s0"
+        - "-4"
+        - "-m > /home/esi/Desktop/ESI1.log"
+    - command: PPSgen
+      name: PPS-1
+      run_root: True
+      args:
+        - "-d /dev/ptp0"
+        - "-L 0,2"
+    - command: PPSgen
+      name: PPS-2
+      run_root: True
+      args:
+        - "-d /dev/ptp0"
+        - "-p 1000000000"
+
+OC-ESI-1-P2P-UDP:
+  ip_addr: 129.187.151.206
+  user: esi
+  pass: iot
+  id: ESI-1
+  programs:
+    - command: /home/esi/Desktop/thomas/dpdk/restore.sh
+      name: Re-attach igb drivers
+      block: True
+      run_root: True
+      args:
+        - " "
+    - command: ethtool
+      name: Set enp2s0 to 100Mbps
+      block: True
+      run_root: True
+      args:
+        - "-s enp2s0"
+        - "speed 100"
+        - "duplex full"
+        - "autoneg on"
+    - command: /home/esi/Desktop/thomas/linuxptp-3.1.1/ptp4l
+      name: PTP
+      run_root: True
+      args:
+        - "-i enp2s0"
+        - "-4"
+        - "-P"
+        - "--tx_timestamp_timeout 50"
+        - "-m > /home/esi/Desktop/ESI1.log"
+    - command: PPSgen
+      name: PPS-1
+      run_root: True
+      args:
+        - "-d /dev/ptp0"
+        - "-L 0,2"
+    - command: PPSgen
+      name: PPS-2
+      run_root: True
+      args:
+        - "-d /dev/ptp0"
+        - "-p 1000000000"
+
+BC-ESI-1-UDP:
+  ip_addr: 129.187.151.206
+  user: esi
+  pass: iot
+  id: ESI-1
+  programs:
+    - command: ethtool
+      name: Set enp2s0 to 100Mbps
+      block: True
+      run_root: True
+      args:
+        - "-s enp2s0"
+        - "speed 100"
+        - "duplex full"
+        - "autoneg on"
+    - command: ethtool
+      name: Set enp3s0 to 100Mbps
+      block: True
+      run_root: True
+      args:
+        - "-s enp3s0"
+        - "speed 100"
+        - "duplex full"
+        - "autoneg on"
+    - command: /home/esi/Desktop/thomas/linuxptp-3.1.1/ts2phc
+      name: ts2phc NIC sync
+      run_root: True
+      args:
+        - "-f /home/esi/Desktop/thomas/linuxptp-3.1.1/configs/ts2phc-TC.cfg"
+        - "> /home/esi/Desktop/ESI1-ts2phc.log"
+    - command: /home/esi/Desktop/thomas/linuxptp-3.1.1/ptp4l
+      name: PTP BC
+      run_root: True
+      args:
+        - "-f /home/esi/Desktop/thomas/linuxptp-3.1.1/configs/BC.cfg"
+        - "-i enp2s0 -i enp3s0"
+        - "-4"
+        - "-m"
+        - "> /home/esi/Desktop/ESI1.log"
+
+#################### ESI-2 Presets
+
+TransparetClock-ESI-2-E2E-UDP:
+  ip_addr: 129.187.151.75
+  user: esi2
+  pass: iot
+  id: ESI-2
+  programs:
+    - command: ethtool
+      name: Set enp5s0 to 100Mbps
+      block: True
+      run_root: True
+      args:
+        - "-s enp5s0"
+        - "speed 100"
+        - "duplex full"
+        - "autoneg on"
+    - command: ethtool
+      name: Set enp1s0 to 100Mbps
+      block: True
+      run_root: True
+      args:
+        - "-s enp1s0"
+        - "speed 100"
+        - "duplex full"
+        - "autoneg on"
+    - command: /home/esi2/Desktop/linuxptp-3.1.1/ts2phc
+      name: ts2phc NIC sync
+      run_root: True
+      args:
+        - "-f /home/esi2/Desktop/linuxptp-3.1.1/configs/ts2phc-TC.cfg"
+        - "> /home/esi2/Desktop/ESI2-ts2phc.log"
+    - command: /home/esi2/Desktop/linuxptp-3.1.1/ptp4l
+      name: PTP TC
+      run_root: True
+      args:
+        - "-f /home/esi2/Desktop/linuxptp-3.1.1/configs/E2E-TC.cfg"
+        - "-i enp1s0 -i enp5s0 -i enp6s0"
+        - "-4"
+        - "-m"
+        - "> /home/esi2/Desktop/ESI2.log"
+
+TransparetClock-ESI-2-E2E-UDP-with-switching:
+  ip_addr: 129.187.151.75
+  user: esi2
+  pass: iot
+  id: ESI-2
+  programs:
+    - command: ethtool
+      name: Set enp5s0 to 100Mbps
+      block: True
+      run_root: True
+      args:
+        - "-s enp5s0"
+        - "speed 100"
+        - "duplex full"
+        - "autoneg on"
+    - command: ethtool
+      name: Set enp1s0 to 100Mbps
+      block: True
+      run_root: True
+      args:
+        - "-s enp1s0"
+        - "speed 100"
+        - "duplex full"
+        - "autoneg on"
+    - command: /home/esi2/Desktop/linuxptp-3.1.1/ts2phc
+      name: ts2phc NIC sync
+      run_root: True
+      args:
+        - "-f /home/esi2/Desktop/linuxptp-3.1.1/configs/ts2phc-TC.cfg"
+        - "> /home/esi2/Desktop/ESI2-ts2phc.log"
+    - command: /home/esi2/Desktop/linuxptp-3.1.1/ptp4l
+      name: PTP TC
+      run_root: True
+      args:
+        - "-f /home/esi2/Desktop/linuxptp-3.1.1/configs/E2E-TC.cfg"
+        - "-i enp1s0 -i enp5s0 -i enp6s0"
+        - "-4"
+        - "-m"
+        - "> /home/esi2/Desktop/ESI2.log"
+    - command: ubridge
+      name: software switching on TC
+      run_root: True
+      args:
+        - "--dontfork"
+        - "enp1s0 enp5s0 enp6s0"
+
+TransparetClock-ESI-2-P2P-L2:
+  ip_addr: 129.187.151.75
+  user: esi2
+  pass: iot
+  id: ESI-2
+  programs:
+    - command: ethtool
+      name: Set enp1s0 to 100Mbps
+      block: True
+      run_root: True
+      args:
+        - "-s enp5s0"
+        - "speed 100"
+        - "duplex full"
+        - "autoneg on"
+    - command: /home/esi2/Desktop/linuxptp-3.1.1/ts2phc
+      name: ts2phc NIC sync
+      run_root: True
+      args:
+        - "-f /home/esi2/Desktop/linuxptp-3.1.1/configs/ts2phc-TC.cfg"
+        - "> /home/esi2/Desktop/ESI2-ts2phc.log"
+    - command: /home/esi2/Desktop/linuxptp-3.1.1/ptp4l
+      name: PTP TC
+      run_root: True
+      args:
+        - "-f /home/esi2/Desktop/linuxptp-3.1.1/configs/P2P-TC.cfg"
+        - "-i enp1s0 -i enp5s0 -i enp6s0"
+        - "-2"
+        - "-P"
+        - "-m"
+        - "> /home/esi2/Desktop/ESI2.log"
+        
+TransparetClock-ESI-2-P2P-UDP:
+  ip_addr: 129.187.151.75
+  user: esi2
+  pass: iot
+  id: ESI-2
+  programs:
+    - command: ethtool
+      name: Set enp1s0 to 100Mbps
+      block: True
+      run_root: True
+      args:
+        - "-s enp5s0"
+        - "speed 100"
+        - "duplex full"
+        - "autoneg on"
+    - command: /home/esi2/Desktop/linuxptp-3.1.1/ts2phc
+      name: ts2phc NIC sync
+      run_root: True
+      args:
+        - "-f /home/esi2/Desktop/linuxptp-3.1.1/configs/ts2phc-TC.cfg"
+        - "> /home/esi2/Desktop/ESI2-ts2phc.log"
+    - command: /home/esi2/Desktop/linuxptp-3.1.1/ptp4l
+      name: PTP TC
+      run_root: True
+      args:
+        - "-f /home/esi2/Desktop/linuxptp-3.1.1/configs/P2P-TC.cfg"
+        - "-i enp1s0 -i enp5s0 -i enp6s0"
+        - "-P"
+        - "-m"
+        - "> /home/esi2/Desktop/ESI2.log"
+
+BC-ESI-2-UDP:
+  ip_addr: 129.187.151.75
+  user: esi2
+  pass: iot
+  id: ESI-2
+  programs:
+    - command: ethtool
+      name: Set enp1s0 to 100Mbps
+      block: True
+      run_root: True
+      args:
+        - "-s enp1s0"
+        - "speed 100"
+        - "duplex full"
+        - "autoneg on"
+    - command: /home/esi2/Desktop/linuxptp-3.1.1/ts2phc
+      name: ts2phc NIC sync
+      run_root: True
+      args:
+        - "-f /home/esi2/Desktop/linuxptp-3.1.1/configs/ts2phc-TC.cfg"
+    - command: /home/esi2/Desktop/linuxptp-3.1.1/ptp4l
+      name: PTP TC
+      run_root: True
+      args:
+        - "-f /home/esi2/Desktop/linuxptp-3.1.1/configs/BC.cfg"
+        - "-i enp1s0 -i enp5s0 -i enp6s0"
+        - "-4"
+        - "-m"
+        - "> /home/esi2/Desktop/ESI2.log"
+
+UNICAST-MASTER-ESI-2:
+  ip_addr: 129.187.151.75
+  user: esi2
+  pass: iot
+  id: ESI-2
+  programs:
+    - command: /home/esi2/Desktop/linuxptp-3.1.1/ptp4l
+      name: PTP Master
+      run_root: True
+      args:
+        - "-i enp1s0"
+        - "-4"
+        - "-f /home/esi2/Desktop/linuxptp-3.1.1/configs/UNICAST-MASTER.cfg"
+        - "-m > /home/esi2/Desktop/ESI2.log"
+    - command: PPSgen
+      name: PPS-1
+      run_root: True
+      args:
+        - "-d /dev/ptp0"
+        - "-L 0,2"
+    - command: PPSgen
+      name: PPS-2
+      run_root: True
+      args:
+        - "-d /dev/ptp0"
+        - "-p 1000000000"
+        
+        
+        
+# TEMP FOR IPSEC EXPERIMENT
+       
+UNICAST-SLAVE-TEMP:
+  ip_addr: 129.187.151.144
+  user: guru
+  pass: changeme
+  id: GURU
+  programs:
+    - command: ifconfig
+      name: ifconfig enp2s0
+      block: True
+      run_root: True
+      args:
+        - "enp2s0 192.168.0.222/24 up"
+    - command: /home/guru/Desktop/linuxptp-3.1.1/ptp4l
+      name: PTP Master
+      run_root: True
+      args:
+        - "-i enp2s0"
+        - "-4"
+        - "-s"
+        - "-f /home/guru/Desktop/linuxptp-3.1.1/configs/UNICAST-SLAVE.cfg"
+        - "-m > /home/guru/Desktop/GURU.log"
+    - command: PPSgen
+      name: PPS-1
+      run_root: True
+      args:
+        - "-d /dev/ptp0"
+        - "-L 0,2"
+    - command: PPSgen
+      name: PPS-2
+      run_root: True
+      args:
+        - "-d /dev/ptp0"
+        - "-p 1000000000"
+         
+        
+        
+        
+        
+
+

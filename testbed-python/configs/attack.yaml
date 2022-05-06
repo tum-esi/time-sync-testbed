@@ -1,0 +1,24 @@
+
+TC_CORR:
+  name: TC correction field attack
+  device: ESI-1
+  type: tc_corr
+  csv: 'attacks/TC-attack.csv'
+
+TC_CORR2:
+  name: TC esi2 correction field attack
+  device: ESI-2
+  type: tc_corr
+  csv: 'attacks/TC-attack.csv'
+
+DELAY_ATTACK:
+  name: Delay attack
+  device: ESI-1
+  type: delay_attack
+  csv: 'attacks/DELAY-attack.csv'
+
+FLOOD:
+  name: Packet Flood Attack
+  device: ESI-1
+  type: packet_flood
+  csv: 'attacks/FLOOD-attack.csv'

@@ -1,0 +1,22 @@
+# Do not use the colon symbol ':' in any of the device or interface names.
+
+ESI-1:
+  enp2s0: 192.168.0.112
+  enp3s0: 192.168.0.113
+
+ESI-2:
+  enp1s0: 192.168.0.110
+  enp5s0: 192.168.0.150
+  enp6s0: 192.168.0.160
+
+BBB-1:
+  eth0: 192.168.0.131
+
+BBB-2:
+  eth0: 192.168.0.121
+
+NXP-1:
+  eth0: 192.168.0.102
+
+NXP-2:
+  eth0: 192.168.0.103

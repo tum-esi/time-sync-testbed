@@ -1,0 +1,62 @@
+BBB2:
+  name: BBB2 logger
+  device: BBB-2
+  script: ptp4l-logdump-ssh
+  rfile: /var/log/messages
+  outfile: /home/testbed-controller/Desktop/testbed-python/BBB2.log
+
+BBB1:
+  name: BBB1 logger
+  device: BBB-1
+  script: ptp4l-logdump-ssh
+  rfile: /var/log/messages
+  outfile: /home/testbed-controller/Desktop/testbed-python/BBB1.log
+
+NXP1:
+  name: NXP-1 logger
+  script: serial-logdump
+  serial: /dev/ttyACM3
+  baud: 115200
+  outfile: /home/testbed-controller/Desktop/testbed-python/NXP1.log
+
+NXP2:
+  name: NXP-2 logger
+  script: serial-logdump
+  serial: /dev/ttyACM2
+  baud: 115200
+  outfile: /home/testbed-controller/Desktop/testbed-python/NXP2.log
+
+ESI1:
+  name: ESI-1 logger
+  script: ptp4l-logdump-ssh
+  device: ESI-1
+  rfile: /home/esi/Desktop/ESI1.log
+  outfile: /home/testbed-controller/Desktop/testbed-python/ESI1.log
+
+ESI1-ts2phc:
+  name: ESI-1 ts2phc logger
+  script: ptp4l-logdump-ssh
+  device: ESI-1
+  rfile: /home/esi/Desktop/ESI1-ts2phc.log
+  outfile: /home/testbed-controller/Desktop/testbed-python/ESI1-ts2phc.log
+
+ESI2:
+  name: ESI-2 logger
+  script: ptp4l-logdump-ssh
+  device: ESI-2
+  rfile: /home/esi2/Desktop/ESI2.log
+  outfile: /home/testbed-controller/Desktop/testbed-python/ESI2.log
+
+ESI2-ts2phc:
+  name: ESI-2 ts2phc logger
+  script: ptp4l-logdump-ssh
+  device: ESI-2
+  rfile: /home/esi2/Desktop/ESI2-ts2phc.log
+  outfile: /home/testbed-controller/Desktop/testbed-python/ESI2-ts2phc.log
+  
+TEMP-guru:
+  name: PTP logger for tmp guru
+  script: ptp4l-logdump-ssh
+  device: GURU
+  rfile: /home/guru/Desktop/GURU.log
+  outfile: /home/testbed-controller/Desktop/testbed-python/GURU.log

@@ -1,0 +1,1 @@
+cmd_/home/esi/Desktop/thomas/dpdk/dpdk-kmods/linux/igb_uio/igb_uio.mod := { echo  /home/esi/Desktop/thomas/dpdk/dpdk-kmods/linux/igb_uio/igb_uio.o;  echo; } > /home/esi/Desktop/thomas/dpdk/dpdk-kmods/linux/igb_uio/igb_uio.mod

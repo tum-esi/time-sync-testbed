@@ -1,0 +1,247 @@
+# `measurement` field valid values are 1,2,3,4 ONLY!
+
+#
+#PROTOTYPE:
+#  name: Main Plotter
+#  type: rsplot
+#  ip: 129.187.151.100
+#  lines:
+##    - name: Actual Offset BC
+##      type: oscillo
+##      measurement: 3
+#    - name: Actual Offset NXP-Slave
+#      type: oscillo
+#      measurement: 1
+#    - name: Actual Offset BBB-Slave
+#      type: oscillo
+#      measurement: 2
+#    - name: Reported Delay NXP
+#      type: nxp-serial-delay
+#      logfile: /home/testbed-controller/Desktop/testbed-python/NXPslave.log
+#    - name: Reported Offset NXP
+#      type: nxp-serial-offset
+#      logfile: /home/testbed-controller/Desktop/testbed-python/NXPslave.log
+##    - name: Reported Offset BC
+##      type: log-ptp4l-offset
+##      logfile: /home/testbed-controller/Desktop/testbed-python/BC-ESI2.log
+##    - name: Reported Delay BC
+##      type: log-ptp4l-delay
+##      logfile: /home/testbed-controller/Desktop/testbed-python/BC-ESI2.log
+#    - name: Reported Offset BBB
+#      type: log-ptp4l-offset
+#      logfile: /home/testbed-controller/Desktop/testbed-python/BBBslave.log
+#    - name: Reported Delay BBB
+#      type: log-ptp4l-delay
+#      logfile: /home/testbed-controller/Desktop/testbed-python/BBBslave.log
+#
+#
+#
+#
+#PROTOTYPE2:
+#  name: Main Plotter 2
+#  type: rsplot
+#  ip: 129.187.151.100
+#  lines:
+##    - name: Actual Offset BC
+##      type: oscillo
+##      measurement: 3
+##    - name: Actual Offset NXP-Slave
+##      type: oscillo
+##      measurement: 1
+#    - name: Actual Offset BBB-Slave
+#      type: oscillo
+#      measurement: 2
+##    - name: Reported Delay NXP
+##      type: nxp-serial-delay
+##      logfile: /home/testbed-controller/Desktop/testbed-python/NXPslave.log
+##    - name: Reported Offset NXP
+##      type: nxp-serial-offset
+##      logfile: /home/testbed-controller/Desktop/testbed-python/NXPslave.log
+##    - name: Reported Offset BC
+##      type: log-ptp4l-offset
+##      logfile: /home/testbed-controller/Desktop/testbed-python/BC-ESI2.log
+##    - name: Reported Delay BC
+##      type: log-ptp4l-delay
+##      logfile: /home/testbed-controller/Desktop/testbed-python/BC-ESI2.log
+#    - name: Reported Offset BBB
+#      type: log-ptp4l-offset
+#      logfile: /home/testbed-controller/Desktop/testbed-python/BBBslave.log
+#    - name: Reported Delay BBB
+#      type: log-ptp4l-delay
+#      logfile: /home/testbed-controller/Desktop/testbed-python/BBBslave.log
+#
+##
+##RSPLOT:
+##  name: RS Plot from BBB
+##  type: rsplot
+##  ip: 129.187.151.100
+##  slavetype: BBB
+##  logfile: /home/testbed-controller/Desktop/testbed-python/BBBslave.log
+##
+##RSPLOT_NXP:
+##  name: RS Plot from NXP
+##  type: rsplot
+##  ip: 129.187.151.100
+##  slavetype: NXP
+##  logfile: /home/testbed-controller/Desktop/testbed-python/NXPslave.log
+#
+#PLOT-3:
+#  name: BBB Slave vs ESI2-Master
+#  type: rsplot
+#  ip: 129.187.151.100
+#  title: BBB Slave vs ESI2 Master
+#  lines:
+#    - name: Actual Offset BBB-Slave
+#      type: oscillo
+#      measurement: 4
+#    - name: Reported Offset BBB
+#      type: log-ptp4l-offset
+#      logfile: /home/testbed-controller/Desktop/testbed-python/BBBslave.log
+#
+
+test-plot:
+  name: BBB BBB
+  type: rsplot
+  ip: 129.187.151.100
+  title: BBB2 vs BBB1
+  lines:
+    - name: Actual Offset BBB-2
+      type: oscillo
+      measurement: 1
+      channel: BBB-2
+      reference: BBB-1
+    - name: Reported Offset BBB-2
+      type: log-ptp4l-offset
+      logfile: /home/testbed-controller/Desktop/testbed-python/BBB2.log
+    - name: Reported Delay BBB-2
+      type: log-ptp4l-delay
+      logfile: /home/testbed-controller/Desktop/testbed-python/BBB2.log
+
+test-plot-6:
+  name: BBB BBB NXP
+  type: rsplot
+  ip: 129.187.151.100
+  title: BBB2 vs BBB1
+  lines:
+    - name: Actual Offset BBB-2
+      type: oscillo
+      measurement: 1
+      channel: BBB-2
+      reference: BBB-1
+    - name: Actual Offset NXP-2
+      type: oscillo
+      measurement: 2
+      channel: NXP-2
+      reference: BBB-1
+
+test-plot-n:
+  name: NXP NXP
+  type: rsplot
+  ip: 129.187.151.100
+  title: NXP1 vs NXP2
+  lines:
+    - name: Actual Offset NXP-2
+      type: oscillo
+      measurement: 1
+      channel: NXP-2
+      reference: NXP-1
+    - name: Reported Offset NXP-2
+      type: nxp-serial-offset
+      logfile: /home/testbed-controller/Desktop/testbed-python/NXP2.log
+    - name: Reported Delay NXP-2
+      type: nxp-serial-delay
+      logfile: /home/testbed-controller/Desktop/testbed-python/NXP2.log
+
+test-plot2:
+  name: ESI1 vs NXP-1
+  type: rsplot
+  ip: 129.187.151.100
+  title: ESI1 vs NXP-1
+  lines:
+    - name: Actual Offset NXP-1
+      type: oscillo
+      measurement: 1
+      channel: NXP-1
+      reference: ESI-1
+    - name: Reported Offset NXP-1
+      type: nxp-serial-offset
+      logfile: /home/testbed-controller/Desktop/testbed-python/NXP1.log
+
+
+test-plot3:
+  name: ESI1 vs NXP-2
+  type: rsplot
+  ip: 129.187.151.100
+  title: ESI1 vs NXP-2
+  lines:
+    - name: Actual Offset NXP-2
+      type: oscillo
+      measurement: 2
+      channel: NXP-2
+      reference: ESI-1
+    - name: Reported Offset NXP-2
+      type: nxp-serial-offset
+      logfile: /home/testbed-controller/Desktop/testbed-python/NXP2.log
+
+
+test-plot4:
+  name: ESI1 vs BBB-1
+  type: rsplot
+  ip: 129.187.151.100
+  title: ESI1 vs BBB-1
+  lines:
+    - name: Actual Offset BBB-1
+      type: oscillo
+      measurement: 3
+      channel: BBB-1
+      reference: ESI-1
+    - name: Reported Offset BBB-1
+      type: log-ptp4l-offset
+      logfile: /home/testbed-controller/Desktop/testbed-python/BBB1.log
+
+
+test-plot5:
+  name: ESI1 vs BBB-2
+  type: rsplot
+  ip: 129.187.151.100
+  title: ESI1 vs BBB-2
+  lines:
+    - name: Actual Offset BBB-2
+      type: oscillo
+      measurement: 4
+      channel: BBB-2
+      reference: ESI-1
+    - name: Reported Offset BBB-2
+      type: log-ptp4l-offset
+      logfile: /home/testbed-controller/Desktop/testbed-python/BBB2.log
+
+dummy:
+  name: DUMMY PLOT
+  type: rsplot
+  ip: 129.187.151.100
+  title: DUMMY PLOT
+  lines:
+    - name: Actual
+      type: oscillo
+      measurement: 1
+      channel: BBB-2
+      reference: BBB-1
+
+tmp-plot:
+  name: TMP vs ESI-2
+  type: rsplot
+  ip: 129.187.151.100
+  title: TMP vs ESI-2
+  lines:
+    - name: Actual Offset TMP
+      type: oscillo
+      measurement: 1
+      channel: ESI-1
+      reference: ESI-2
+    - name: Reported Offset TMP
+      type: log-ptp4l-offset
+      logfile: /home/testbed-controller/Desktop/testbed-python/GURU.log
+    - name: Reported Delay TMP
+      type: log-ptp4l-delay
+      logfile: /home/testbed-controller/Desktop/testbed-python/GURU.log
+

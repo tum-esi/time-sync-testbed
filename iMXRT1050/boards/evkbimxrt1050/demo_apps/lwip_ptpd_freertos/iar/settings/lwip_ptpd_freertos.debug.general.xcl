@@ -1,0 +1,17 @@
+"C:\Program Files\IAR Systems\Embedded Workbench 9.0\arm\bin\armPROC.dll" 
+
+"C:\Program Files\IAR Systems\Embedded Workbench 9.0\arm\bin\armJET.dll" 
+
+"C:\Users\thomas\Desktop\AN12149\boards\evkbimxrt1050\demo_apps\lwip_ptpd_freertos\iar\debug\lwip_ptpd_freertos.out" 
+
+--plugin="C:\Program Files\IAR Systems\Embedded Workbench 9.0\arm\bin\armbat.dll" 
+
+--device_macro="C:\Program Files\IAR Systems\Embedded Workbench 9.0\arm\config\debugger\NXP\iMXRT.dmac" 
+
+--device_macro="C:\Program Files\IAR Systems\Embedded Workbench 9.0\arm\config\debugger\NXP\iMXRT_Trace.dmac" 
+
+--flash_loader="C:\Program Files\IAR Systems\Embedded Workbench 9.0\arm\config\flashloader\NXP\FlashIMXRT1050_EVK_FlexSPI.board" 
+
+
+
+

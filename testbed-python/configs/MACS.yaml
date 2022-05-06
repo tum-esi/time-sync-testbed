@@ -1,0 +1,22 @@
+# Do not use the colon symbol ':' in any of the device or interface names.
+
+ESI-1:
+  enp2s0: 00:1b:21:e9:e2:a9
+  enp3s0: 00:1b:21:e9:e3:9e
+
+ESI-2:
+  enp1s0: 00:1b:21:e9:e2:a6
+  enp5s0: 00:1b:21:e9:e2:a4
+  enp6s0: 00:1b:21:ea:08:24
+
+BBB-1:
+  eth0: 24:76:25:ea:31:3a
+
+BBB-2:
+  eth0: 24:76:25:ff:9b:a9
+
+NXP-1:
+  eth0: 02:12:13:10:15:11
+
+NXP-2:
+  eth0: 02:12:13:10:15:12
